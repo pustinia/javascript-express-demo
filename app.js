@@ -1,15 +1,19 @@
 const express = require('express'); // express
 const logger = require('morgan');  // logger
 const path = require('path'); // for static resources
-// add Router
+// add custom Router
 const homeRouter = require('./routes/homeRouter');
 const articleRouter = require('./routes/articleRouter');
 //const schemas = require('./schemas/index');  // if js name was 'index.js' then be able to hide.
 const connect = require('./schemas');
-
 const app = express();
 
+// connect mongo database
 connect();
+
+// add view with handlebar
+app.set('views', path.join(__dirname,'views'));
+app.set('view engine', 'hbs');
 
 // set middle ware.
 app.use(logger('dev')); // add logger with morgan
