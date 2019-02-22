@@ -12,7 +12,7 @@ const app = express();
 connect();
 
 // set middle ware.
-app.use(logger('dev')); // add logger
+app.use(logger('dev')); // add logger with morgan
 app.use('/static', express.static(path.join(__dirname,'public'))); // /static req to see public folder resources
 
 // body-parser is added at 4.16 Express version.

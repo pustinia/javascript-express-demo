@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Article = require('../schemas/article');
+const logger = require('../middlewares/logger');
 
 /* need apis
 /articles [get]
@@ -12,7 +13,8 @@ const Article = require('../schemas/article');
 
 // using async, await
 // get list of articles
-router.get('/', async (req,res) => {
+// add middleware with logger
+router.get('/', logger, async (req,res) => {
     try{
         const articles = await Article.find({});
         res.json(articles);
@@ -30,7 +32,7 @@ router.get('/', async (req,res) => {
     "content" : "hello content"
 }
 */
-router.post('/', async (req,res) => {
+router.post('/', logger, async (req,res) => {
     const article = new Article(req.body);
     try{
         const result = await article.save();
@@ -40,7 +42,7 @@ router.post('/', async (req,res) => {
     }
 });
 // get article
-router.get('/:num', async (req,res) => {
+router.get('/:num', logger, async (req,res) => {
     try{
         const article = await Article.find({_id : req.params.num});
         res.json(article);
@@ -49,7 +51,7 @@ router.get('/:num', async (req,res) => {
     }
 });
 // update article
-router.put('/:num', async (req,res) => {
+router.put('/:num', logger, async (req,res) => {
     try{
         const result = await Article.update({_id : req.params.num},{
             content : req.body.content,
@@ -61,7 +63,7 @@ router.put('/:num', async (req,res) => {
     }
 });
 // delete article
-router.delete('/:num', async (req,res) => {
+router.delete('/:num', logger, async (req,res) => {
     try{
         const result = await Article.remove({_id: req.params.num});
         res.json(result);
