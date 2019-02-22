@@ -1,6 +1,10 @@
+
 const express = require('express');
+
 const router = express.Router();
+
 const Article = require('../schemas/article');
+
 const logger = require('../middlewares/logger');
 
 /* need apis
@@ -14,13 +18,13 @@ const logger = require('../middlewares/logger');
 // using async, await
 // get list of articles
 // add middleware with logger
-router.get('/', logger, async (req,res) => {
-    try{
-        const articles = await Article.find({});
-        res.json(articles);
-    }catch(err){
-        res.send('get articles error. ',err);
-    }
+router.get('/', logger, async (req, res) => {
+  try {
+    const articles = await Article.find({});
+    res.json(articles);
+  } catch (err) {
+    res.send('get articles error. ', err);
+  }
 });
 
 // create article
@@ -32,44 +36,44 @@ router.get('/', logger, async (req,res) => {
     "content" : "hello content"
 }
 */
-router.post('/', logger, async (req,res) => {
-    const article = new Article(req.body);
-    try{
-        const result = await article.save();
-        res.json(result);
-    }catch(err){
-        res.send('create articles error. ',err);
-    }
+router.post('/', logger, async (req, res) => {
+  const article = new Article(req.body);
+  try {
+    const result = await article.save();
+    res.json(result);
+  } catch (err) {
+    res.send('create articles error. ', err);
+  }
 });
 // get article
-router.get('/:num', logger, async (req,res) => {
-    try{
-        const article = await Article.find({_id : req.params.num});
-        res.json(article);
-    }catch(err){
-        res.send('get one article error.',err);
-    }
+router.get('/:num', logger, async (req, res) => {
+  try {
+    const article = await Article.find({ _id: req.params.num });
+    res.json(article);
+  } catch (err) {
+    res.send('get one article error.', err);
+  }
 });
 // update article
-router.put('/:num', logger, async (req,res) => {
-    try{
-        const result = await Article.update({_id : req.params.num},{
-            content : req.body.content,
-            title : req.body.title
-        });
-        res.json(result);
-    }catch(err){
-        res.send('update article error',err);
-    }
+router.put('/:num', logger, async (req, res) => {
+  try {
+    const result = await Article.update({ _id: req.params.num }, {
+      content: req.body.content,
+      title: req.body.title
+    });
+    res.json(result);
+  } catch (err) {
+    res.send('update article error', err);
+  }
 });
 // delete article
-router.delete('/:num', logger, async (req,res) => {
-    try{
-        const result = await Article.remove({_id: req.params.num});
-        res.json(result);
-    }catch(err) {
-        res.send('delete article error',err);
-    }
+router.delete('/:num', logger, async (req, res) => {
+  try {
+    const result = await Article.remove({ _id: req.params.num });
+    res.json(result);
+  } catch (err) {
+    res.send('delete article error', err);
+  }
 });
 
 /*
@@ -122,7 +126,6 @@ router.delete('/:num', function (req,res) {
     res.send('delete article ' + req.params.num);
 });
 */
-
 
 
 module.exports = router;

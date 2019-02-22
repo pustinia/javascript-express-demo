@@ -1,7 +1,8 @@
 const logger = function (req, res, next) {
-    console.log(req.url, '==> from logger middleware');
-    next();
+  console.log(req.url, '==> from logger middleware');
+  next();
 };
+
 module.exports = logger;
 
 // using another way.
